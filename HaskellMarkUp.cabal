@@ -3,16 +3,18 @@ name:               HaskellMarkUp
 version:            0.1.0.0
 
 -- A short (one-line) description of the package.
--- synopsis:
+synopsis: Write HTML with Haskell
 
 -- A longer description of the package.
--- description:
+description: This is a pointless haskell lib that alows you to write html from haskell. 
+             I think it could be useful for making static site generators in haskell. 
+             For now it doesn't have the many tags supported
 
 -- A URL where users can report bugs.
 -- bug-reports:
 
 -- The license under which the package is released.
--- license:
+license: GPL-3.0-or-later
 author:             rhl120
 maintainer:         rhl120@protonmail.com
 
