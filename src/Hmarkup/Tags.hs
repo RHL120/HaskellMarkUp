@@ -1,4 +1,5 @@
 module Hmarkup.Tags where
+
 import qualified Data.Text
 import qualified Text.Printf as Printf
 
@@ -71,6 +72,16 @@ data Tag
       }
   | LnBreak
 
+escapeString :: String -> String
+escapeString str =
+  concat
+    [ case x of
+      '<' -> "&lt"
+      '>' -> "&gt"
+      _ -> [x]
+    | x <- str
+    ]
+
 showTags :: [Tag] -> String
 showTags st = concat [show x | x <- st]
 
@@ -80,7 +91,7 @@ instance Show Tag where
       [ if x == '\n'
         then "<br>"
         else [x]
-      | x <- str
+      | x <- escapeString str
       ]
   show (Paragraph p st) =
     Printf.printf "<p%s>\n%s\n</p>\n" (show p) (showTags st)
@@ -89,8 +100,7 @@ instance Show Tag where
       then error "Can't convert Heading with more than level 6"
       else Printf.printf "<h%d%s>\n%s\n</h%d>\n" l (show p) (showTags s) l
   show (Link p st) = Printf.printf "<a %s>\n%s\n</a>" (show p) (showTags st)
-  show (Div p st) =
-    Printf.printf "<div %s>\n%s\n</div>" (show p) (showTags st)
+  show (Div p st) = Printf.printf "<div %s>\n%s\n</div>" (show p) (showTags st)
   show (Bold st) = Printf.printf "<b>\n%s\n</b>" (showTags st)
   show (Italic st) = Printf.printf "<i>\n%s\n</i>" (showTags st)
   show (Image p) = Printf.printf "<img %s>\n" (show p)
@@ -103,8 +113,7 @@ instance Show Tag where
   show LnBreak = "<br>"
   show (Header p st) =
     Printf.printf "<header%s>\n%s\n</header>\n" (show p) (showTags st)
-  show (Nav p st) =
-    Printf.printf "<nav%s>\n%s\n</nav>\n" (show p) (showTags st)
+  show (Nav p st) = Printf.printf "<nav%s>\n%s\n</nav>\n" (show p) (showTags st)
   show (Main p st) =
     Printf.printf "<main%s>\n%s\n</main>\n" (show p) (showTags st)
   show (Footer p st) =
