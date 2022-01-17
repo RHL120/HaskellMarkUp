@@ -51,7 +51,7 @@ generateHtml title css preload postload tags =
     title
     (showStyleSheets css)
     (showScripts preload)
-    (Tags.showSubtags tags)
+    (Tags.showTags tags)
     (showScripts postload)
 
 writeHtml ::
